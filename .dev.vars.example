@@ -1,0 +1,6 @@
+DEV_MOCKS=1
+SESSION_SECRET=dev-session-secret-change-me
+LINE_CHANNEL_ID=dev-channel
+APP_URL_BASE=http://localhost:5173/
+GOOGLE_SA_KEY=
+LINE_MESSAGING_TOKEN=

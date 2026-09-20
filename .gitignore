@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+.serena/
+test-results/
+docs/screenshots/*.tmp.png
+publish-map.json
+.publish/

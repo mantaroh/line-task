@@ -1,0 +1,1056 @@
+:root {
+  --green: #06c755;
+  --overdue: #d93025;
+  --text: #111;
+  --muted: #666;
+  --border: #e5e5ea;
+  --bg: #fff;
+  --notice: #fff8e1;
+  --tap: 44px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.app {
+  max-width: 390px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+button,
+input,
+select,
+textarea,
+summary {
+  font: inherit;
+}
+
+button,
+.tap,
+input,
+select,
+summary {
+  min-height: var(--tap);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btn-primary {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+  width: 100%;
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  gap: 4px;
+}
+
+.header h1 {
+  font-size: 16px;
+  margin: 0;
+  flex: 1;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header .btn {
+  flex-shrink: 0;
+}
+
+.notice {
+  background: var(--notice);
+  padding: 8px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.notice p {
+  margin: 0;
+  flex: 1;
+}
+
+/* 下部バー（約 69px）＋端末の下端の余白に隠れないように */
+.main {
+  padding: 16px 16px calc(96px + env(safe-area-inset-bottom, 0px));
+  flex: 1;
+}
+
+.loading,
+.error-view {
+  padding: 16px;
+}
+
+.project-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.project-list li + li {
+  margin-top: 8px;
+}
+
+.project-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 6%);
+  cursor: pointer;
+}
+
+.project-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.project-name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.chevron {
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* 画面下に固定するボタン。.app と同じ幅に揃える */
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.bottom-bar-inner {
+  display: flex;
+  gap: 8px;
+  max-width: 358px;
+  margin: 0 auto;
+}
+
+.bottom-bar-inner .btn {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* 白い下部バーに溶け込まないよう、枠を濃く・文字を太くする */
+.bottom-bar-back {
+  border: 2px solid #3c3c43;
+  font-weight: 700;
+}
+
+.task-link {
+  margin: 12px 0;
+}
+
+.copy-button .btn {
+  width: 100%;
+}
+
+.copy-button .hint {
+  margin-top: 8px;
+}
+
+.copy-fallback {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  resize: none;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.hint {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.overdue {
+  color: var(--overdue);
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label,
+.field legend {
+  display: block;
+  margin-bottom: 4px;
+}
+
+fieldset.field {
+  border: none;
+  padding: 0;
+  margin: 0 0 16px;
+}
+
+input[type="text"],
+input[type="url"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.party-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.party-row input {
+  flex: 1;
+}
+
+.error {
+  color: var(--overdue);
+  margin: 8px 0;
+}
+
+.steps {
+  padding-left: 1.4em;
+  margin: 0 0 16px;
+}
+
+.steps li {
+  margin-bottom: 12px;
+}
+
+.email {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  word-break: break-all;
+}
+
+.sa-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.archived {
+  margin-top: 24px;
+}
+
+.archived summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.dev-switcher {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border-top: 1px solid var(--border);
+}
+
+.dev-switcher .btn {
+  flex: 1;
+}
+
+/* 開発時だけ、下部ボタンをユーザー切替の上に出す */
+.app:has(.dev-switcher) .bottom-bar {
+  bottom: 61px;
+}
+
+.banner {
+  background: var(--notice);
+  padding: 8px 12px;
+  margin: 0 0 16px;
+  border-radius: 8px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tab {
+  flex: 1;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.tab.is-active {
+  border-color: var(--green);
+  color: var(--green);
+  font-weight: 600;
+}
+
+.ball-group {
+  margin-bottom: 16px;
+}
+
+.ball-heading {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+  margin: 16px 0 8px;
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-list li + li {
+  margin-top: 8px;
+}
+
+/* 一覧のタスクはカード。期限切れは左端に赤い線を付ける */
+.task-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 6%);
+  cursor: pointer;
+}
+
+.task-card.is-overdue {
+  border-left-color: var(--overdue);
+}
+
+.task-card-title {
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.task-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.task-card-id {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: nowrap;
+  background: #f2f2f5;
+  color: var(--text);
+}
+
+.badge-due.is-overdue {
+  background: #fdecea;
+  color: var(--overdue);
+  font-weight: 600;
+}
+
+.badge-due.is-soon {
+  background: #fff4e0;
+  color: #b25e00;
+  font-weight: 600;
+}
+
+.member-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-party {
+  background: #e8f6ee;
+  color: #1b7a43;
+}
+
+.badge-party.is-unset {
+  background: #f2f2f5;
+  color: var(--muted);
+}
+
+.badge-due.is-none {
+  color: var(--muted);
+}
+
+.choice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btn-choice {
+  flex: 1;
+}
+
+.btn-choice.is-selected,
+.btn-choice[aria-pressed="true"] {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.btn-quick {
+  width: 100%;
+  min-height: 48px;
+}
+
+.activity-section {
+  margin-top: 32px;
+}
+
+.activity-section h2 {
+  font-size: 15px;
+  margin: 0 0 8px;
+}
+
+.activity-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.activity-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.activity-actor {
+  font-weight: 600;
+}
+
+.activity-more {
+  margin-top: 8px;
+}
+
+.settings-section {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-section h2 {
+  font-size: 15px;
+  margin: 0 0 12px;
+}
+
+.member-list,
+.invite-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.member-row,
+.invite-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.member-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.member-icon-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.member-info,
+.invite-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.invite-issued {
+  margin-bottom: 16px;
+}
+
+.invite-url {
+  word-break: break-all;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: var(--tap);
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.switch {
+  appearance: none;
+  flex-shrink: 0;
+  position: relative;
+  width: 52px;
+  height: 32px;
+  min-height: 32px;
+  margin: 0;
+  border-radius: 16px;
+  background: #ccc;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.switch::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+  transition: transform 0.15s;
+}
+
+.switch:checked {
+  background: var(--green);
+}
+
+.switch:checked::before {
+  transform: translateX(20px);
+}
+
+.switch:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.switch:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.notify-hint {
+  margin-top: 4px;
+}
+
+.warning-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--notice);
+  border-radius: 8px;
+}
+
+.warning-box p {
+  flex: 1;
+  margin: 0;
+}
+
+.warning-box p::before {
+  content: "⚠ ";
+}
+
+.warning-box .btn {
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.nowrap-chunk {
+  display: inline-block;
+}
+
+.images-section,
+.media-section,
+.files-section {
+  margin-top: 32px;
+}
+
+.images-section h2,
+.media-section h2,
+.files-section h2 {
+  font-size: 15px;
+  margin: 0 0 8px;
+}
+
+.image-grid {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.image-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #f2f2f7;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-add {
+  width: 100%;
+  min-height: var(--tap);
+}
+
+.image-add.is-disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.image-add ~ .hint {
+  margin-top: 6px;
+}
+
+.image-errors {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+
+.image-errors .error {
+  margin: 4px 0;
+}
+
+.image-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.92);
+}
+
+.image-viewer-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.image-viewer-body img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.media-thumb {
+  position: relative;
+}
+
+.media-thumb-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 32px;
+}
+
+.media-thumb-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 16px;
+  line-height: 36px;
+  text-align: center;
+}
+
+.media-thumb-duration {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.media-player-body {
+  flex-direction: column;
+  gap: 12px;
+}
+
+.media-player-body video {
+  max-width: 100%;
+  max-height: 100%;
+  background: #000;
+}
+
+.media-audio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.media-audio-icon {
+  font-size: 64px;
+}
+
+.media-audio audio {
+  width: 100%;
+}
+
+.image-viewer-note {
+  color: #fff;
+}
+
+.image-viewer-actions {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+}
+
+.image-viewer-actions .btn {
+  flex: 1;
+  min-height: 48px;
+}
+
+.image-viewer-delete {
+  color: var(--overdue);
+}
+
+.memo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.memo-head .memo-toggle {
+  min-height: 36px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.memo-view {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+.memo-view p,
+.memo-view ul {
+  margin: 0 0 8px;
+}
+
+.memo-view > :last-child {
+  margin-bottom: 0;
+}
+
+.memo-view ul {
+  padding-left: 1.4em;
+}
+
+.memo-view a {
+  color: #0a66c2;
+  text-decoration: underline;
+}
+
+.memo-empty {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+}
+
+.memo-toolbar,
+.memo-link-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.memo-toolbar .btn {
+  min-height: 40px;
+  padding: 0 12px;
+}
+
+.memo-link-form input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* PC（幅 1024px 以上）。スマホの見た目は変えず、横の広さを使う */
+@media (min-width: 1024px) {
+  .app {
+    max-width: 1120px;
+  }
+
+  .bottom-bar-inner {
+    max-width: 1088px;
+  }
+
+  /* 一覧と詳細以外（ホーム・設定・追加など）は、入力欄が広がりすぎないよう 720px に収める */
+  .main:not(.main-wide) {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .bottom-bar-inner:has(> :only-child) {
+    max-width: 688px;
+  }
+
+  .list-controls {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .list-controls .tabs {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .list-controls .field {
+    width: 240px;
+    margin-bottom: 0;
+  }
+
+  /* ボールごとの列 */
+  .ball-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    align-items: start;
+  }
+
+  .ball-group {
+    margin-bottom: 0;
+    padding: 12px;
+    border-radius: 12px;
+    background: #f7f7fa;
+  }
+
+  /* 詳細：左に入力欄、右に操作・添付・履歴 */
+  .task-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "form top"
+      "form bottom";
+    grid-template-rows: auto 1fr;
+    column-gap: 32px;
+    align-items: start;
+  }
+
+  .task-detail-top {
+    grid-area: top;
+  }
+
+  .task-detail-form {
+    grid-area: form;
+  }
+
+  .task-detail-bottom {
+    grid-area: bottom;
+  }
+
+  .task-detail-bottom > .images-section:first-child {
+    margin-top: 16px;
+  }
+}
+
+
+/* タスクのファイル添付 */
+.files-section .file-list {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+.files-section .file-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.files-section .file-open {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  padding: 10px 4px;
+  background: none;
+  border: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+.files-section .file-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.files-section .file-size {
+  flex: none;
+  font-size: 0.85em;
+}
+.files-section .file-delete {
+  flex: none;
+  padding: 6px 10px;
+}
